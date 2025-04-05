@@ -62,7 +62,7 @@ def process_window_spec_ppg(sig, freq, resolution, min_hz, max_hz):
     :param max_hz: Higher cutoff frequency for spectrum
     :return: Spectrogram of shape (n_steps, n_freq_bins)
     """
-    filt = lambda x: butter_bandpass_filter(x, 0.4, 4, fs=freq, order=4)
+    filt = lambda x: butter_bandpass_filter(x, 0.66, 3, fs=freq, order=4)
     sig = np.apply_along_axis(filt, 0, sig)
     sig = (sig - sig.mean(axis=0)[None, :]) / (sig.std(axis=0)[None, :] + 1e-10)
     sig = sig.mean(axis=-1)  # average over channels if multiple present
